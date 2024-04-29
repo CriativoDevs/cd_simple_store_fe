@@ -66,7 +66,7 @@ function ProductScreen({ params }) {
                   />
                 </ListGroup.Item>
                 <ListGroup.Item>Brand: {product.product_brand}</ListGroup.Item>
-                <ListGroup.Item>
+                <ListGroup.Item style={{ marginBottom: "20px" }}>
                   Description: {product.product_description}
                 </ListGroup.Item>
               </ListGroup>
