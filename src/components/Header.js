@@ -23,8 +23,9 @@ function Header() {
   return (
     <>
       <Navbar
-        className="navbar navbar-expand-lg bg-dark"
+        className="navbar navbar-expand-lg"
         data-bs-theme="dark"
+        style={{ backgroundColor: "#333" }}
       >
         <div className="container-fluid">
           <LinkContainer to="/">

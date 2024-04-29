@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function Product({ product, onClick }) {
   return (
-    <div style={{ marginTop: "5px" }}>
+    <div style={{ marginTop: "5px", marginBottom: "50px" }}>
       <Card
         className="my-3 p-3 rounded"
         onClick={onClick}
