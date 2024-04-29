@@ -49,6 +49,7 @@ function ProductScreen({ params }) {
                   width: "500px",
                   display: "block",
                   margin: "auto",
+                  objectFit: "cover",
                 }}
               />
             </Col>

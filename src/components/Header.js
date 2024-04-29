@@ -3,6 +3,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, loadUserFromStorage } from "../actions/userActions";
+import SearchForm from "./SearchForm";
 
 function Header() {
   const dispatch = useDispatch();
@@ -83,19 +84,7 @@ function Header() {
                 </>
               )}
             </ul>
-            <form className="d-flex">
-              <input
-                className="form-control me-sm-2"
-                type="search"
-                placeholder="Pesquisar"
-              />
-              <button
-                className="btn btn-secondary my-2 my-sm-0"
-                type="submit"
-              >
-                Pesquisar
-              </button>
-            </form>
+            <SearchForm />
           </div>
         </div>
       </Navbar>
