@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../actions/userActions";
+import { logout, loadUserFromStorage } from "../actions/userActions";
 
 function Header() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Load user information from local storage when the component mounts
+    dispatch(loadUserFromStorage());
+  }, [dispatch]);
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
-  const dispatch = useDispatch();
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -47,11 +52,11 @@ function Header() {
                   </Nav.Link>
                 </LinkContainer>
               </li>
-                  <li className="nav-item">
-                    <LinkContainer to="/cart">
-                      <Nav.Link className="navbar-link">Cart</Nav.Link>
-                    </LinkContainer>
-                  </li>
+              <li className="nav-item">
+                <LinkContainer to="/cart">
+                  <Nav.Link className="navbar-link">Cart</Nav.Link>
+                </LinkContainer>
+              </li>
               {userInfo ? (
                 <>
                   <li>

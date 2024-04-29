@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader";
 import Message from "../Message";
 import { login } from "../../actions/userActions";
+import axios from "axios";
 
 function LoginScreen() {
   const navigate = useNavigate();
@@ -16,7 +17,9 @@ function LoginScreen() {
   const { userInfo, loading, error } = userLogin;
 
   useEffect(() => {
-    if (userInfo) {
+    const token = localStorage.getItem('jwtToken');
+    if (userInfo || token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       navigate("/");
     }
   }, [userInfo, redirect, navigate]);

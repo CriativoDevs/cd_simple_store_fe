@@ -23,16 +23,17 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+
     // Store JWT Token in local storage
     localStorage.setItem("jwtToken", data.token);
 
     // Store user information in local storage
     const userData = {
       username: data.username,
-      email: data.email
+      email: data.email,
     };
     localStorage.setItem("userInfo", JSON.stringify(userData));
-    
+
     console.log(data);
   } catch (error) {
     dispatch({
@@ -46,6 +47,7 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
+  localStorage.removeItem("jwtToken"); // Remove JWT token from local storage
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
 };
@@ -82,3 +84,20 @@ export const signup =
       });
     }
   };
+
+  // In authActions.js
+
+export const loadUserFromStorage = () => (dispatch) => {
+  const jwtToken = localStorage.getItem("jwtToken");
+  const userInfoFromStorage = localStorage.getItem("userInfo");
+
+  if (jwtToken && userInfoFromStorage) {
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: {
+        token: jwtToken,
+        userInfo: JSON.parse(userInfoFromStorage)
+      }
+    });
+  }
+};
