@@ -17,7 +17,7 @@ function LoginScreen() {
   const { userInfo, loading, error } = userLogin;
 
   useEffect(() => {
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem("jwtToken");
     if (userInfo || token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       navigate("/");
@@ -47,12 +47,13 @@ function LoginScreen() {
   };
   return (
     <>
-      <Container className="my-4">
+      <Container className="my-4 pt-5">
         <Row>
           <Col md={4}></Col>
           <Col
             md={4}
             xs={9}
+            style={{ marginBottom: "100px" }}
           >
             {loading ? (
               <Loader />
@@ -134,6 +135,10 @@ function LoginScreen() {
                   <Row className="py-3">
                     <Col className="text-center">
                       New user? <Link to="/signup">Signup</Link>
+                    </Col>
+                    <Col className="text-center">
+                      Reset password?{" "} <br/>
+                      <Link to="/">Reset Password</Link>
                     </Col>
                   </Row>
                 </Card.Body>

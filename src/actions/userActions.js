@@ -7,6 +7,9 @@ import {
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAIL,
+  // USER_PASSWORD_RESET_REQUEST,
+  // USER_PASSWORD_RESET_SUCCESS,
+  // USER_PASSWORD_RESET_FAIL,
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -73,7 +76,6 @@ export const signup =
       );
       dispatch({ type: USER_SIGNUP_SUCCESS, payload: data });
       // localStorage.setItem("userInfo", JSON.stringify(data)); // can be removed if not sending activation email
-      
     } catch (error) {
       dispatch({
         type: USER_SIGNUP_FAIL,
@@ -85,7 +87,7 @@ export const signup =
     }
   };
 
-  // In authActions.js
+// In authActions.js
 
 export const loadUserFromStorage = () => (dispatch) => {
   const jwtToken = localStorage.getItem("jwtToken");
@@ -96,8 +98,8 @@ export const loadUserFromStorage = () => (dispatch) => {
       type: USER_LOGIN_SUCCESS,
       payload: {
         token: jwtToken,
-        userInfo: JSON.parse(userInfoFromStorage)
-      }
+        userInfo: JSON.parse(userInfoFromStorage),
+      },
     });
   }
 };

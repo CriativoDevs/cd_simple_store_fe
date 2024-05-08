@@ -7,7 +7,6 @@ import HomeScreen from "./components/screens/HomeScreen";
 import LoginScreen from "./components/screens/LoginScreen";
 import SignupScreen from "./components/screens/SignupScreen";
 import CartScreen from "./components/screens/CartScreen";
-// import Product from "./components/Product";
 import ProductScreen from "./components/screens/ProductScreen";
 
 export default function App() {
