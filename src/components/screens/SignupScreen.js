@@ -69,8 +69,8 @@ function SignupScreen() {
           >
             {loading ? (
               <Loader />
-            ) : message ? (
-              <Message variant="danger">{message}</Message>
+            ) : error ? (
+              <Message variant="danger">{error}</Message>
             ) : (
               <Card>
                 <Card.Header
@@ -80,7 +80,7 @@ function SignupScreen() {
                   Signup
                 </Card.Header>
                 <Card.Body>
-                  {error && <Message variant="danger">{error}</Message>}
+                  {message && <Message variant="danger">{message}</Message>}
                   <Form onSubmit={submitHandler}>
                     <Form.Group
                       className="mb-3"

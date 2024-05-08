@@ -7,9 +7,12 @@ import {
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAIL,
-  // USER_PASSWORD_RESET_REQUEST,
-  // USER_PASSWORD_RESET_SUCCESS,
-  // USER_PASSWORD_RESET_FAIL,
+  USER_PASSWORD_RESET_REQUEST,
+  USER_PASSWORD_RESET_SUCCESS,
+  USER_PASSWORD_RESET_FAIL,
+  USER_EMAIL_TO_RESET_PASSWORD_REQUEST,
+  USER_EMAIL_TO_RESET_PASSWORD_SUCCESS,
+  USER_EMAIL_TO_RESET_PASSWORD_FAIL,
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -100,6 +103,56 @@ export const loadUserFromStorage = () => (dispatch) => {
         token: jwtToken,
         userInfo: JSON.parse(userInfoFromStorage),
       },
+    });
+  }
+};
+
+export const emailToPasswordReset = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_EMAIL_TO_RESET_PASSWORD_REQUEST });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.post(
+      "/api/users/email_to_reset_password/",
+      { email: email },
+      config
+    );
+    dispatch({ type: USER_EMAIL_TO_RESET_PASSWORD_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_EMAIL_TO_RESET_PASSWORD_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail // error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const resetPassword = (password, token) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_PASSWORD_RESET_REQUEST });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.post(
+      "/api/users/password_reset/",
+      { password: password, token: token },
+      config
+    );
+    dispatch({ type: USER_PASSWORD_RESET_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: USER_PASSWORD_RESET_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
     });
   }
 };

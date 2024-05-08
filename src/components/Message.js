@@ -14,7 +14,7 @@ function Message({ variant, children }) {
         className="text-center mt-5"
         style={{ width: "100%", margin: "auto" }}
       >
-        <Alert.Heading>Oh snap! You got an {children}!</Alert.Heading>
+        <Alert.Heading>You got an {children}!</Alert.Heading>
       </Alert>
     );
   }

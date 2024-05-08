@@ -57,8 +57,8 @@ function LoginScreen() {
           >
             {loading ? (
               <Loader />
-            ) : message ? (
-              <Message variant="danger">{message}</Message>
+            ) : error ? (
+              <Message variant="danger">{error}</Message>
             ) : (
               <Card>
                 <Card.Header
@@ -68,7 +68,7 @@ function LoginScreen() {
                   Login
                 </Card.Header>
                 <Card.Body>
-                  {error && <Message variant="success">{error}</Message>}
+                  {message && <Message variant="success">{message}</Message>}
                   <Form onSubmit={submitHandler}>
                     <Form.Group
                       className="mb-3"
@@ -134,11 +134,14 @@ function LoginScreen() {
                   </Form>
                   <Row className="py-3">
                     <Col className="text-center">
-                      New user? <Link to="/signup">Signup</Link>
+                      New user? <br />
+                      <Link to="/signup">Signup</Link>
                     </Col>
                     <Col className="text-center">
-                      Reset password?{" "} <br/>
-                      <Link to="/">Reset Password</Link>
+                      Reset password? <br />
+                      <Link to="/send-email-reset-password">
+                        Reset Password
+                      </Link>
                     </Col>
                   </Row>
                 </Card.Body>
