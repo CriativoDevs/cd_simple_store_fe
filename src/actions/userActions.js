@@ -132,20 +132,34 @@ export const emailToPasswordReset = (email) => async (dispatch) => {
   }
 };
 
-export const resetPassword = (password, token) => async (dispatch) => {
+export const resetPassword = (email, password, token) => async (dispatch) => {
   try {
-    dispatch({ type: USER_PASSWORD_RESET_REQUEST });
+    dispatch({
+      type: USER_PASSWORD_RESET_REQUEST,
+    });
+
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
+
+    const body = JSON.stringify({
+      email,
+      password,
+      token,
+    });
+
     const { data } = await axios.post(
       "/api/users/password_reset/",
-      { password: password, token: token },
+      body,
       config
     );
-    dispatch({ type: USER_PASSWORD_RESET_SUCCESS, payload: data });
+
+    dispatch({
+      type: USER_PASSWORD_RESET_SUCCESS,
+      payload: data,
+    });
   } catch (error) {
     dispatch({
       type: USER_PASSWORD_RESET_FAIL,
