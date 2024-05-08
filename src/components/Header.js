@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, loadUserFromStorage } from "../actions/userActions";
 import SearchForm from "./SearchForm";
 
 function Header() {
   const dispatch = useDispatch();
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     // Load user information from local storage when the component mounts
@@ -23,71 +24,59 @@ function Header() {
   return (
     <>
       <Navbar
-        className="navbar navbar-expand-lg"
-        data-bs-theme="dark"
+        expand="lg"
+        variant="dark"
         style={{ backgroundColor: "#333" }}
+        expanded={expanded}
       >
-        <div className="container-fluid">
+        <Container>
           <LinkContainer to="/">
-            <Nav.Link className="navbar-brand">CD Simple Store</Nav.Link>
+            <Navbar.Brand>CD Simple Store</Navbar.Brand>
           </LinkContainer>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarColor02"
-            aria-controls="navbarColor02"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div
-            className="collapse navbar-collapse"
-            id="navbarColor02"
-          >
-            <ul className="navbar-nav me-auto">
-              <li className="nav-item">
-                <LinkContainer to="/">
-                  <Nav.Link className="navbar-link active">
-                    Home <i class="fa-solid fa-house-chimney"></i>
-                  </Nav.Link>
-                </LinkContainer>
-              </li>
-              <li className="nav-item">
-                <LinkContainer to="/cart">
-                  <Nav.Link className="navbar-link">Cart</Nav.Link>
-                </LinkContainer>
-              </li>
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            onClick={() => setExpanded(expanded ? false : "expanded")}
+          />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <LinkContainer
+                to="/"
+                exact
+              >
+                <Nav.Link onClick={() => setExpanded(false)}>
+                  Home <i className="fa-solid fa-house-chimney"></i>
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/cart">
+                <Nav.Link onClick={() => setExpanded(false)}>Cart</Nav.Link>
+              </LinkContainer>
               {userInfo ? (
-                <>
-                  <li>
-                    <Nav.Link
-                      className="nav-link"
-                      onClick={logoutHandler}
-                    >
-                      Logout
-                    </Nav.Link>
-                  </li>
-                </>
+                <Nav.Link
+                  onClick={() => {
+                    logoutHandler();
+                    setExpanded(false);
+                  }}
+                >
+                  Logout
+                </Nav.Link>
               ) : (
                 <>
-                  <li className="nav-item">
-                    <LinkContainer to="/login">
-                      <Nav.Link className="nav-link">Login</Nav.Link>
-                    </LinkContainer>
-                  </li>
-                  <li>
-                    <LinkContainer to="/signup">
-                      <Nav.Link className="nav-link">Signup</Nav.Link>
-                    </LinkContainer>
-                  </li>
+                  <LinkContainer to="/login">
+                    <Nav.Link onClick={() => setExpanded(false)}>
+                      Login
+                    </Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/signup">
+                    <Nav.Link onClick={() => setExpanded(false)}>
+                      Signup
+                    </Nav.Link>
+                  </LinkContainer>
                 </>
               )}
-            </ul>
+            </Nav>
             <SearchForm />
-          </div>
-        </div>
+          </Navbar.Collapse>
+        </Container>
       </Navbar>
     </>
   );

@@ -61,11 +61,16 @@ function SignupScreen() {
   return (
     <>
       <Container className="my-4">
-        <Row>
-          <Col md={4}></Col>
+        <Row className="justify-content-center">
           <Col
-            md={4}
-            xs={9}
+            md={6}
+            lg={4}
+            xs={12}
+          ></Col>
+          <Col
+            md={6}
+            lg={4}
+            xs={12}
           >
             {loading ? (
               <Loader />
@@ -220,7 +225,11 @@ function SignupScreen() {
               </Card>
             )}
           </Col>
-          <Col md={4}></Col>
+          <Col
+            md={6}
+            lg={4}
+            xs={12}
+          ></Col>
         </Row>
       </Container>
     </>

@@ -48,11 +48,16 @@ function LoginScreen() {
   return (
     <>
       <Container className="my-4 pt-5">
-        <Row>
-          <Col md={4}></Col>
+        <Row className="justify-content-center">
           <Col
-            md={4}
-            xs={9}
+            md={6}
+            lg={4}
+            xs={12}
+          ></Col>
+          <Col
+            md={6}
+            lg={4}
+            xs={12}
             style={{ marginBottom: "100px" }}
           >
             {loading ? (
@@ -148,7 +153,11 @@ function LoginScreen() {
               </Card>
             )}
           </Col>
-          <Col md={4}></Col>
+          <Col
+            md={6}
+            lg={4}
+            xs={12}
+          ></Col>
         </Row>
       </Container>
     </>
