@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Link,
-  useParams,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -86,7 +81,10 @@ function CartScreen({ params }) {
                         <Link to={`/product/${item.product}`}>{item.name}</Link>
                       </Col>
                       <Col md={2}>${item.price}</Col>
-                      <Col md={2} xs={3}>
+                      <Col
+                        md={2}
+                        xs={3}
+                      >
                         <Form.Control
                           as="select"
                           value={item.qty}
@@ -106,10 +104,19 @@ function CartScreen({ params }) {
                           ))}
                         </Form.Control>
                       </Col>
-                      <Col md={1}>
+                      <Col
+                        md={2}
+                        className="text-right"
+                      >
+                        <strong>${(item.price * item.qty).toFixed(2)}</strong>
+                      </Col>
+                      <Col
+                        md={1}
+                        className="text-right"
+                      >
                         <Button
                           type="button"
-                          variant="light"
+                          variant="danger"
                           onClick={() => removeFromCartHandler(item.product)}
                         >
                           <i className="fas fa-trash"></i>
@@ -120,6 +127,34 @@ function CartScreen({ params }) {
                 ))}
               </ListGroup>
             )}
+          </Col>
+          <Col>
+            <ListGroup style={{ marginTop: "85px" }}>
+              <ListGroup.Item>
+                <Row className="justify-content-center">
+                  <Col
+                    md={6}
+                    className="text-right"
+                  >
+                    <h5>
+                      Total: $
+                      {cartItems
+                        .reduce((acc, item) => acc + item.qty * item.price, 0)
+                        .toFixed(2)}
+                    </h5>
+                  </Col>
+
+                  <Button
+                    type="button"
+                    variant="success"
+                    onClick={checkoutHandler}
+                    className="btn-block"
+                  >
+                    Proceed to Checkout
+                  </Button>
+                </Row>
+              </ListGroup.Item>
+            </ListGroup>
           </Col>
         </Row>
         <style jsx>{`
