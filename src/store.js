@@ -12,6 +12,7 @@ import {
   userEmailToPasswordResetReducers,
   userResetPasswordReducers,
 } from "./reducers/userReducers";
+import { cartReducer } from "./reducers/cartReducers";
 
 const reducer = combineReducers({
   productsList: productsListReducers,
@@ -20,9 +21,16 @@ const reducer = combineReducers({
   userSignup: userSignupReducers,
   userEmail: userEmailToPasswordResetReducers,
   userResetPassword: userResetPasswordReducers,
+  cart: cartReducer,
 });
 
-const initialState = {};
+const cartItemsFromStorage = localStorage.getItem("cartItems")
+  ? JSON.parse(localStorage.getItem("cartItems"))
+  : [];
+
+const initialState = {
+  cart: { cartItems: cartItemsFromStorage },
+};
 const middleware = [thunk];
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

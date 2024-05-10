@@ -48,7 +48,7 @@ export default function App() {
         </Routes>
         <Routes>
           <Route
-            path="/cart"
+            path="/cart/:id?"
             element={<CartScreen />}
           />
         </Routes>

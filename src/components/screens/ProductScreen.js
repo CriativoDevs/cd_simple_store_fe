@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import {
   Row,
   Col,
@@ -8,6 +8,7 @@ import {
   Button,
   Card,
   Container,
+  Form,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../../actions/productsActions";
@@ -17,13 +18,24 @@ import Message from "../Message";
 
 function ProductScreen({ params }) {
   const dispatch = useDispatch();
+  const {id} = useParams();
   const productDetails = useSelector((state) => state.productDetails);
+
+  const navigate = useNavigate();
+
   const { loading, error, product } = productDetails;
-  const { id } = useParams();
+
+  const [qty, setQty] = useState(1);
 
   useEffect(() => {
     dispatch(listProductDetails(id));
-  }, [dispatch, id]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, params]);
+
+ const addToCartHandler = () => {
+    navigate(`/cart/${id}?qty=${qty}`);
+  };
+
   return (
     <Container>
       <div>
@@ -78,7 +90,10 @@ function ProductScreen({ params }) {
                   <ListGroup.Item>
                     <Row>
                       <Col>Price:</Col>
-                      <Col>
+                      <Col
+                        xs="auto"
+                        className="my-1"
+                      >
                         <strong>€{product.product_price}</strong>
                       </Col>
                     </Row>
@@ -86,18 +101,50 @@ function ProductScreen({ params }) {
                   <ListGroup.Item>
                     <Row>
                       <Col>Status:</Col>
-                      <Col>
+                      <Col
+                        xs="auto"
+                        className="my-1"
+                      >
                         {product.product_stock_count > 0
                           ? "In Stock"
                           : "Out of Stock"}
                       </Col>
                     </Row>
                   </ListGroup.Item>
+                  {product.product_stock_count > 0 && (
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>Quantity:</Col>
+                        <Col
+                          xs="auto"
+                          className="my-1"
+                        >
+                          <Form.Control
+                            as="select"
+                            value={qty}
+                            onChange={(e) => setQty(e.target.value)}
+                          >
+                            {[...Array(product.product_stock_count).keys()].map(
+                              (x) => (
+                                <option
+                                  key={x + 1}
+                                  value={x + 1}
+                                >
+                                  {x + 1}
+                                </option>
+                              )
+                            )}
+                          </Form.Control>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )}
                   <ListGroup.Item>
                     <Button
                       className="btn-block btn-success"
                       type="button"
                       disabled={product.product_stock_count === 0}
+                      onClick={addToCartHandler}
                     >
                       Add To Cart
                     </Button>
