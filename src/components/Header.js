@@ -47,18 +47,20 @@ function Header() {
                   Home <i className="fa-solid fa-house-chimney"></i>
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/cart">
-                <Nav.Link onClick={() => setExpanded(false)}>Cart</Nav.Link>
-              </LinkContainer>
               {userInfo ? (
-                <Nav.Link
-                  onClick={() => {
-                    logoutHandler();
-                    setExpanded(false);
-                  }}
-                >
-                  Logout
-                </Nav.Link>
+                <>
+                  <LinkContainer to="/cart">
+                    <Nav.Link onClick={() => setExpanded(false)}>Cart</Nav.Link>
+                  </LinkContainer>
+                  <Nav.Link
+                    onClick={() => {
+                      logoutHandler();
+                      setExpanded(false);
+                    }}
+                  >
+                    Logout
+                  </Nav.Link>
+                </>
               ) : (
                 <>
                   <LinkContainer to="/login">

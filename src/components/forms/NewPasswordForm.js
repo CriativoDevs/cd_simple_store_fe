@@ -28,7 +28,7 @@ const NewPasswordForm = ({ onSubmit }) => {
       return;
     }
     dispatch(resetPassword(email, password, token));
-    setMessage("Password reset link sent to your email");
+    setMessage("Password was reset successfully");
   };
 
   const showPassword = () => {
