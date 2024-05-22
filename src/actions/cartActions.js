@@ -27,3 +27,10 @@ export const removeFromCart = (id) => (dispatch, getState) => {
 
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
+
+export const createCheckoutSession = (cartItems) => async (dispatch) => {
+  const { data } = await axios.post("/api/create-checkout-session/", {
+    cartItems,
+  });
+  return data;
+};

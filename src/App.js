@@ -10,6 +10,8 @@ import CartScreen from "./components/screens/CartScreen";
 import ProductScreen from "./components/screens/ProductScreen";
 import ResetPasswordForm from "./components/forms/ResetPasswordForm";
 import NewPasswordForm from "./components/forms/NewPasswordForm";
+import SuccessPage from "./components/pages/SuccessPage";
+import CancelPage from "./components/pages/CancelPage";
 
 export default function App() {
   return (
@@ -56,6 +58,18 @@ export default function App() {
           <Route
             path="/product/:id"
             element={<ProductScreen />}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/success"
+            element={<SuccessPage />}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/cancel"
+            element={<CancelPage />}
           />
         </Routes>
         <Footer />
