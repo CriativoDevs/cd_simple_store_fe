@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap"; // Import Modal and Button
-import Product from "./Product"; // Import Product component
+import Product from "../Product"; // Import Product component
 
 function SearchForm() {
   const [searchTerm, setSearchTerm] = useState("");

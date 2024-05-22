@@ -21,6 +21,7 @@ function CartScreen({ params }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const error = useSelector((state) => state.cart.error);
 
   const productId = id;
   const qty = location.search ? Number(location.search.split("=")[1]) : 1; // Get the quantity from the URL query
@@ -57,6 +58,7 @@ function CartScreen({ params }) {
             md={8}
           >
             <h1>Cart</h1>
+            {error && <Message variant="danger">{error}</Message>}
             {cartItems.length === 0 ? (
               <Message
                 variant="info"

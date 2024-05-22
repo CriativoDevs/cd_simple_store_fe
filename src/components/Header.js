@@ -3,7 +3,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, loadUserFromStorage } from "../actions/userActions";
-import SearchForm from "./SearchForm";
+import SearchForm from "../components/forms/SearchForm";
 
 function Header() {
   const dispatch = useDispatch();
