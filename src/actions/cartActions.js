@@ -29,7 +29,7 @@ export const removeFromCart = (id) => (dispatch, getState) => {
 };
 
 export const createCheckoutSession = (cartItems) => async (dispatch) => {
-  const { data } = await axios.post("/api/create-checkout-session/", {
+  const { data } = await axios.post("/api/create-payment-intent/", {
     cartItems,
   });
   return data;

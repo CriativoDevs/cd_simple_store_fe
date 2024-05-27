@@ -13,6 +13,15 @@ import NewPasswordForm from "./components/forms/NewPasswordForm";
 import SuccessPage from "./components/pages/SuccessPage";
 import CancelPage from "./components/pages/CancelPage";
 
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+console.log(
+  "Stripe Publishable Key:",
+  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
+);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+
 export default function App() {
   return (
     <>
@@ -23,55 +32,43 @@ export default function App() {
             path="/"
             element={<HomeScreen />}
           />
-        </Routes>
-        <Routes>
           <Route
             path="/login"
             element={<LoginScreen />}
           />
-        </Routes>
-        <Routes>
           <Route
             path="/signup"
             element={<SignupScreen />}
           />
-        </Routes>
-        <Routes>
           <Route
             path="/send-email-reset-password"
             element={<ResetPasswordForm />}
           />
-        </Routes>
-        <Routes>
           <Route
             path="/reset-password/:uid/:token"
             element={<NewPasswordForm />}
           />
-        </Routes>
-        <Routes>
-          <Route
-            path="/cart/:id?"
-            element={<CartScreen />}
-          />
-        </Routes>
-        <Routes>
           <Route
             path="/product/:id"
             element={<ProductScreen />}
           />
         </Routes>
-        <Routes>
-          <Route
-            path="/success"
-            element={<SuccessPage />}
-          />
-        </Routes>
-        <Routes>
-          <Route
-            path="/cancel"
-            element={<CancelPage />}
-          />
-        </Routes>
+        <Elements stripe={stripePromise}>
+          <Routes>
+            <Route
+              path="/cart/:id?"
+              element={<CartScreen />}
+            />
+            <Route
+              path="/success"
+              element={<SuccessPage />}
+            />
+            <Route
+              path="/cancel"
+              element={<CancelPage />}
+            />
+          </Routes>
+        </Elements>
         <Footer />
       </Router>
     </>

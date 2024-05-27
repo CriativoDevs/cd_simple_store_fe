@@ -1,24 +1,10 @@
 import React, { useEffect } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Button,
-  Container,
-  Form,
-} from "react-bootstrap";
-import { loadStripe } from "@stripe/stripe-js";
-import {
-  addToCart,
-  removeFromCart,
-  createCheckoutSession,
-} from "../../actions/cartActions";
+import { Row, Col, Image, ListGroup, Button, Container, Form } from "react-bootstrap";
+import { addToCart, removeFromCart } from "../../actions/cartActions";
 import Message from "../Message";
-
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+import CheckoutForm from "../forms/CheckoutForm";
 
 function CartScreen() {
   const { id } = useParams();
@@ -26,7 +12,7 @@ function CartScreen() {
   const error = useSelector((state) => state.cart.error);
 
   const productId = id;
-  const qty = location.search ? Number(location.search.split("=")[1]) : 1; // Get the quantity from the URL query
+  const qty = location.search ? Number(location.search.split("=")[1]) : 1;
 
   const dispatch = useDispatch();
 
@@ -43,39 +29,14 @@ function CartScreen() {
     dispatch(removeFromCart(id));
   };
 
-  const checkoutHandler = async () => {
-    try {
-      const session = await dispatch(createCheckoutSession(cartItems));
-      console.log("Session:", session); // Add this line to log the session
-      const stripe = await stripePromise;
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-      if (error) {
-        console.error("Stripe error:", error); // Log any error
-      }
-    } catch (error) {
-      console.error("Checkout handler error:", error); // Log any error
-    }
-  };
-
   return (
     <Container className="mt-5 text-center">
-      <Row
-        className="justify-content-center"
-        style={{ width: "100%", marginBottom: "50px" }}
-      >
-        <Col
-          className="m-auto"
-          md={8}
-        >
+      <Row className="justify-content-center" style={{ width: "100%", marginBottom: "50px" }}>
+        <Col className="m-auto" md={8}>
           <h1>Cart</h1>
           {error && <Message variant="danger">{error}</Message>}
           {cartItems.length === 0 ? (
-            <Message
-              variant="info"
-              className="text-center"
-            >
+            <Message variant="info" className="text-center">
               Your cart is empty <Link to="/">Go Back</Link>
             </Message>
           ) : (
@@ -84,55 +45,30 @@ function CartScreen() {
                 <ListGroup.Item key={item.product}>
                   <Row className="justify-content-center">
                     <Col md={2}>
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fluid
-                        rounded
-                      />
+                      <Image src={item.image} alt={item.name} fluid rounded />
                     </Col>
                     <Col md={3}>
                       <Link to={`/product/${item.product}`}>{item.name}</Link>
                     </Col>
                     <Col md={2}>${item.price}</Col>
-                    <Col
-                      md={2}
-                      xs={3}
-                    >
+                    <Col md={2} xs={3}>
                       <Form.Control
                         as="select"
                         value={item.qty}
-                        onChange={(e) =>
-                          dispatch(
-                            addToCart(item.product, Number(e.target.value))
-                          )
-                        }
+                        onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}
                       >
                         {[...Array(item.countInStock).keys()].map((x) => (
-                          <option
-                            key={x + 1}
-                            value={x + 1}
-                          >
+                          <option key={x + 1} value={x + 1}>
                             {x + 1}
                           </option>
                         ))}
                       </Form.Control>
                     </Col>
-                    <Col
-                      md={2}
-                      className="text-right"
-                    >
+                    <Col md={2} className="text-right">
                       <strong>${(item.price * item.qty).toFixed(2)}</strong>
                     </Col>
-                    <Col
-                      md={1}
-                      className="text-right"
-                    >
-                      <Button
-                        type="button"
-                        variant="danger"
-                        onClick={() => removeFromCartHandler(item.product)}
-                      >
+                    <Col md={1} className="text-right">
+                      <Button type="button" variant="danger" onClick={() => removeFromCartHandler(item.product)}>
                         <i className="fas fa-trash"></i>
                       </Button>
                     </Col>
@@ -146,25 +82,9 @@ function CartScreen() {
           <ListGroup style={{ marginTop: "85px" }}>
             <ListGroup.Item>
               <Row className="justify-content-center">
-                <Col
-                  md={6}
-                  className="text-right"
-                >
-                  <h5>
-                    Total: $
-                    {cartItems
-                      .reduce((acc, item) => acc + item.qty * item.price, 0)
-                      .toFixed(2)}
-                  </h5>
+                <Col md={6}>
+                  <CheckoutForm cartItems={cartItems} />
                 </Col>
-                <Button
-                  type="button"
-                  variant="success"
-                  onClick={checkoutHandler}
-                  className="btn-block"
-                >
-                  Proceed to Checkout
-                </Button>
               </Row>
             </ListGroup.Item>
           </ListGroup>
