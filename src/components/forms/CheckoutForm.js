@@ -7,14 +7,16 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { useDispatch } from "react-redux";
-import { createCheckoutSession } from "../../actions/cartActions";
+import { createCheckoutSession, clearCart } from "../../actions/cartActions";
 import { Button, Form, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./CheckoutForm.css";
 
 const CheckoutForm = ({ cartItems }) => {
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [paymentProcessing, setPaymentProcessing] = useState(false);
 
@@ -25,7 +27,6 @@ const CheckoutForm = ({ cartItems }) => {
     try {
       const session = await dispatch(createCheckoutSession(cartItems));
       const { clientSecret } = session;
-      console.log("SESSION", session);
 
       const paymentResult = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -33,19 +34,24 @@ const CheckoutForm = ({ cartItems }) => {
         },
       });
 
-      console.log("PAYMENTRESULT", paymentResult);
-
       if (paymentResult.error) {
         setError(`Payment failed: ${paymentResult.error.message}`);
         setPaymentProcessing(false);
+        navigate("/cancel");
       } else {
         if (paymentResult.paymentIntent.status === "succeeded") {
-          alert("Payment succeeded!");
+          dispatch(clearCart());
+          navigate("/success");
+        } else {
+          setError("Payment did not succeed.");
+          setPaymentProcessing(false);
+          navigate("/cancel");
         }
       }
     } catch (err) {
       setError(`Payment failed: ${err.message}`);
       setPaymentProcessing(false);
+      navigate("/cancel");
     }
   };
 
@@ -92,7 +98,7 @@ const CheckoutForm = ({ cartItems }) => {
         <Button
           type="submit"
           disabled={!stripe || paymentProcessing}
-          className="mt-3"
+          className="mt-3 btn btn-primary"
         >
           {paymentProcessing ? "Processing..." : "Pay"}
         </Button>

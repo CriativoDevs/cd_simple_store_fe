@@ -16,10 +16,6 @@ import CancelPage from "./components/pages/CancelPage";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
-console.log(
-  "Stripe Publishable Key:",
-  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
-);
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 export default function App() {
