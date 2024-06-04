@@ -11,7 +11,13 @@ import {
   USER_PASSWORD_RESET_FAIL,
   USER_EMAIL_TO_RESET_PASSWORD_REQUEST,
   USER_EMAIL_TO_RESET_PASSWORD_SUCCESS,
-  USER_EMAIL_TO_RESET_PASSWORD_FAIL
+  USER_EMAIL_TO_RESET_PASSWORD_FAIL,
+  USER_PROFILE_REQUEST,
+  USER_PROFILE_SUCCESS,
+  USER_PROFILE_FAIL,
+  USER_PROFILE_UPDATE_REQUEST,
+  USER_PROFILE_UPDATE_SUCCESS,
+  USER_PROFILE_UPDATE_FAIL,
 } from "../constants/userConstants";
 
 export const userLoginReducers = (state = {}, action) => {
@@ -53,7 +59,7 @@ export const userEmailToPasswordResetReducers = (state = {}, action) => {
     default:
       return state;
   }
-}
+};
 
 export const userResetPasswordReducers = (state = {}, action) => {
   switch (action.type) {
@@ -62,6 +68,25 @@ export const userResetPasswordReducers = (state = {}, action) => {
     case USER_PASSWORD_RESET_SUCCESS:
       return { loading: false, userInfo: action.payload };
     case USER_PASSWORD_RESET_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const userProfileReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case USER_PROFILE_REQUEST:
+      return { loading: true, ...state };
+    case USER_PROFILE_SUCCESS:
+      return { loading: false, user: action.payload };
+    case USER_PROFILE_FAIL:
+      return { loading: false, error: action.payload };
+    case USER_PROFILE_UPDATE_REQUEST:
+      return { loading: true, ...state };
+    case USER_PROFILE_UPDATE_SUCCESS:
+      return { loading: false, success: true, user: action.payload };
+    case USER_PROFILE_UPDATE_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

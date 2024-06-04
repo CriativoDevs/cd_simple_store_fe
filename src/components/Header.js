@@ -50,7 +50,12 @@ function Header() {
               {userInfo ? (
                 <>
                   <LinkContainer to="/cart">
-                    <Nav.Link onClick={() => setExpanded(false)}>Cart</Nav.Link>
+                    <Nav.Link onClick={() => setExpanded(false)}>Cart <i className="fa-solid fa-cart-shopping"></i></Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/profile">
+                    <Nav.Link onClick={() => setExpanded(false)}>
+                      Profile <i className="fa-solid fa-user"></i>
+                    </Nav.Link>
                   </LinkContainer>
                   <Nav.Link
                     onClick={() => {
@@ -58,19 +63,19 @@ function Header() {
                       setExpanded(false);
                     }}
                   >
-                    Logout
+                    Logout <i className="fa-solid fa-right-from-bracket"></i>
                   </Nav.Link>
                 </>
               ) : (
                 <>
                   <LinkContainer to="/login">
                     <Nav.Link onClick={() => setExpanded(false)}>
-                      Login
+                      Login <i className="fa-solid fa-right-to-bracket"></i>
                     </Nav.Link>
                   </LinkContainer>
                   <LinkContainer to="/signup">
                     <Nav.Link onClick={() => setExpanded(false)}>
-                      Signup
+                      Signup <i className="fa-solid fa-user-plus"></i>
                     </Nav.Link>
                   </LinkContainer>
                 </>

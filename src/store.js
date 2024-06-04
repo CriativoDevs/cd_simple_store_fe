@@ -11,6 +11,7 @@ import {
   userSignupReducers,
   userEmailToPasswordResetReducers,
   userResetPasswordReducers,
+  userProfileReducer,
 } from "./reducers/userReducers";
 import { cartReducer } from "./reducers/cartReducers";
 
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   userSignup: userSignupReducers,
   userEmail: userEmailToPasswordResetReducers,
   userResetPassword: userResetPasswordReducers,
+  userProfile: userProfileReducer,
   cart: cartReducer,
 });
 

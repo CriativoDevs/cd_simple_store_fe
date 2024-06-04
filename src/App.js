@@ -15,6 +15,7 @@ import CancelPage from "./components/pages/CancelPage";
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import ProfileScreen from "./components/screens/ProfileScreen";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
@@ -35,6 +36,10 @@ export default function App() {
           <Route
             path="/signup"
             element={<SignupScreen />}
+          />
+          <Route 
+            path="/profile"
+            element={<ProfileScreen />}
           />
           <Route
             path="/send-email-reset-password"

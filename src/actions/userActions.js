@@ -13,6 +13,12 @@ import {
   USER_EMAIL_TO_RESET_PASSWORD_REQUEST,
   USER_EMAIL_TO_RESET_PASSWORD_SUCCESS,
   USER_EMAIL_TO_RESET_PASSWORD_FAIL,
+  USER_PROFILE_REQUEST,
+  USER_PROFILE_SUCCESS,
+  USER_PROFILE_FAIL,
+  USER_PROFILE_UPDATE_REQUEST,
+  USER_PROFILE_UPDATE_SUCCESS,
+  USER_PROFILE_UPDATE_FAIL,
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -90,8 +96,6 @@ export const signup =
     }
   };
 
-// In authActions.js
-
 export const loadUserFromStorage = () => (dispatch) => {
   const jwtToken = localStorage.getItem("jwtToken");
   const userInfoFromStorage = localStorage.getItem("userInfo");
@@ -163,6 +167,86 @@ export const resetPassword = (email, password, token) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_PASSWORD_RESET_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const getUserProfile = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_PROFILE_REQUEST });
+
+    const token = localStorage.getItem("jwtToken");
+
+    if (!token) {
+      throw new Error("No token found");
+    }
+    console.log("Token:", token); // Log the token
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    console.log("config: ", config);
+
+    const { data } = await axios.get("/api/users/profile/", config);
+    console.log("Response data: ", data);
+    dispatch({
+      type: USER_PROFILE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log("Error: ", error);
+    dispatch({
+      type: USER_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const updateUserProfile = (profile) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_PROFILE_UPDATE_REQUEST });
+
+    const token = localStorage.getItem("jwtToken");
+
+    if (!token) {
+      throw new Error("No token found");
+    }
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const payload = {
+      profile,
+    };
+
+    const { data } = await axios.put("/api/users/profile/", payload, config);
+
+    dispatch({
+      type: USER_PROFILE_UPDATE_SUCCESS,
+      payload: data,
+    });
+
+    dispatch({
+      type: USER_PROFILE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_PROFILE_UPDATE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
