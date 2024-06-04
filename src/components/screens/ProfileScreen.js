@@ -93,13 +93,15 @@ const ProfileScreen = () => {
                     onChange={handleChange}
                   ></Form.Control>
                 </Form.Group>
-                <Button
-                  type="submit"
-                  variant="primary"
-                  className="my-3"
-                >
-                  Update
-                </Button>
+                <div className="d-grid gap-2 col-6 mx-auto">
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    className="my-3"
+                  >
+                    Update
+                  </Button>
+                </div>
               </Form>
             </Col>
           </Row>
