@@ -62,6 +62,7 @@ export const logout = () => (dispatch) => {
   localStorage.removeItem("jwtToken"); // Remove JWT token from local storage
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
+  document.location.href = "/login";
 };
 
 export const signup =
@@ -184,7 +185,6 @@ export const getUserProfile = () => async (dispatch, getState) => {
     if (!token) {
       throw new Error("No token found");
     }
-    console.log("Token:", token); // Log the token
 
     const config = {
       headers: {
@@ -192,23 +192,25 @@ export const getUserProfile = () => async (dispatch, getState) => {
         Authorization: `Bearer ${token}`,
       },
     };
-    console.log("config: ", config);
 
     const { data } = await axios.get("/api/users/profile/", config);
-    console.log("Response data: ", data);
+
     dispatch({
       type: USER_PROFILE_SUCCESS,
       payload: data,
     });
   } catch (error) {
-    console.log("Error: ", error);
-    dispatch({
-      type: USER_PROFILE_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    });
+    if (error.response && error.response.status === 401) {
+      dispatch(logout());
+    } else {
+      dispatch({
+        type: USER_PROFILE_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
+    }
   }
 };
 
@@ -245,12 +247,16 @@ export const updateUserProfile = (profile) => async (dispatch, getState) => {
       payload: data,
     });
   } catch (error) {
-    dispatch({
-      type: USER_PROFILE_UPDATE_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    });
+    if (error.response && error.response.status === 401) {
+      dispatch(logout());
+    } else {
+      dispatch({
+        type: USER_PROFILE_UPDATE_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
+    }
   }
 };
