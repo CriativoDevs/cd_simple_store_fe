@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader";
 import Message from "../Message";
-import { validEmail, validPassword } from "../../components/screens/Regex";
+import { validEmail, validPassword } from "../../components/regex/Regex";
 import { signup } from "../../actions/userActions";
 
 function SignupScreen() {
