@@ -1,9 +1,8 @@
 .card-element-wrapper {
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  background-color: #fff;
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: aliceblue;
+  border-radius: 5px;
 }
 
 .StripeElement {
@@ -15,17 +14,16 @@
 
 .card-element-row {
   display: flex;
-  gap: 10px; /* Add space between the elements */
+  justify-content: space-between;
+  flex-direction: row;
 }
 
 .card-element-row .card-element-wrapper {
-  flex: 1;
+  width: calc(50% - 5px);
 }
 
 .button-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
+  text-align: center;
 }
 
 .total-amount {
