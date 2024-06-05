@@ -96,7 +96,7 @@ function Product({ product, onClick }) {
             <Button
               type="button"
               className="mt-3"
-              disabled
+              onClick={() => navigate("/login")}
             >
               Login to buy
             </Button>
