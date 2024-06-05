@@ -46,7 +46,7 @@ const ProfileScreen = () => {
     <Container>
       <div>
         <Link
-          className="btn btn-light my-3"
+          className="btn btn-primary my-3"
           to="/"
         >
           Go Back
@@ -59,6 +59,7 @@ const ProfileScreen = () => {
           <Row className="justify-content-center">
             <Col md={6}>
               <h2>{user.name}'s Profile</h2>
+              <p>Email: {user.email}</p>
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="phone_number">
                   <Form.Label>Phone number</Form.Label>

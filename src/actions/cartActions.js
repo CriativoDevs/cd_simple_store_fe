@@ -40,9 +40,23 @@ export const clearCart = () => (dispatch) => {
   localStorage.removeItem("cartItems");
 };
 
-export const createCheckoutSession = (cartItems) => async (dispatch) => {
-  const { data } = await axios.post("/api/create-payment-intent/", {
-    cartItems,
-  });
-  return data;
-};
+export const createCheckoutSession =
+  (cartItems) => async (dispatch, getState) => {
+    const { userInfo } = getState().userLogin;
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      "/api/create-payment-intent/",
+      {
+        cartItems,
+      },
+      config
+    );
+    return data;
+  };

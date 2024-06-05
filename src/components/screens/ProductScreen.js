@@ -16,23 +16,24 @@ import Rating from "../Rating";
 import Loader from "../Loader";
 import Message from "../Message";
 
-function ProductScreen({ params }) {
+function ProductScreen() {
   const dispatch = useDispatch();
-  const {id} = useParams();
-  const productDetails = useSelector((state) => state.productDetails);
-
+  const { id } = useParams();
   const navigate = useNavigate();
 
+  const productDetails = useSelector((state) => state.productDetails);
+  const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, product } = productDetails;
+  const { userInfo } = userLogin;
 
   const [qty, setQty] = useState(1);
 
   useEffect(() => {
     dispatch(listProductDetails(id));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, params]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, id]);
 
- const addToCartHandler = () => {
+  const addToCartHandler = () => {
     navigate(`/cart/${id}?qty=${qty}`);
   };
 
@@ -140,14 +141,20 @@ function ProductScreen({ params }) {
                     </ListGroup.Item>
                   )}
                   <ListGroup.Item>
-                    <Button
-                      className="btn-block btn-success"
-                      type="button"
-                      disabled={product.product_stock_count === 0}
-                      onClick={addToCartHandler}
-                    >
-                      Add To Cart
-                    </Button>
+                    {userInfo ? (
+                      <Button
+                        className="btn-block btn-success"
+                        type="button"
+                        disabled={product.product_stock_count === 0}
+                        onClick={addToCartHandler}
+                      >
+                        Add To Cart
+                      </Button>
+                    ) : (
+                      <Message variant="info">
+                        Please <Link to="/login">login</Link> to add to cart
+                      </Message>
+                    )}
                   </ListGroup.Item>
                 </ListGroup>
               </Card>

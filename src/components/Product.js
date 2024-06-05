@@ -1,9 +1,40 @@
-import React from "react";
-import { Card } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Card, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import Rating from "./Rating";
 import { Link } from "react-router-dom";
+import { addToCart } from "../actions/cartActions";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Product({ product, onClick }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.userLogin);
+  const [hasBought, setHasBought] = useState(false);
+
+  useEffect(() => {
+    if (userInfo) {
+      const checkPurchaseStatus = async () => {
+        const { data } = await axios.get(
+          `/api/check-purchase-status/${product._id}/`,
+          {
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
+        setHasBought(data.has_bought);
+      };
+      checkPurchaseStatus();
+    }
+  }, [userInfo, product._id]);
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product._id, 1));
+    navigate("/cart");
+  };
+
   return (
     <div style={{ marginTop: "5px", marginBottom: "50px" }}>
       <Card
@@ -13,7 +44,7 @@ function Product({ product, onClick }) {
           height: "100%",
           marginTop: "20px",
           paddingTop: "20px",
-        }} // Set a fixed height for the card
+        }}
       >
         <Link to={`/product/${product._id}`}>
           <Card.Img
@@ -21,15 +52,13 @@ function Product({ product, onClick }) {
             alt={product.product_name}
             fluid
             style={{
-              height: "270px", // Adjust the height of the image as needed
-              width: "100%", // Ensure the image width takes the full width of its container
+              height: "270px",
+              width: "100%",
               objectFit: "cover",
             }}
           />
         </Link>
         <Card.Body style={{ height: "calc(100% - 270px)" }}>
-          {" "}
-          {/* Calculate height for the card body */}
           <Link
             to={`/product/${product._id}`}
             className="text-dark"
@@ -38,8 +67,6 @@ function Product({ product, onClick }) {
               as="h3"
               style={{ maxHeight: "50px", overflow: "hidden" }}
             >
-              {" "}
-              {/* Limit maximum height of the product name */}
               {product.product_name}
             </Card.Title>
           </Link>
@@ -49,6 +76,31 @@ function Product({ product, onClick }) {
             text={`${product.number_of_reviews} reviews`}
             color={"#f8e825"}
           />
+          {userInfo && hasBought ? (
+            <Button
+              type="button"
+              className="mt-3"
+              onClick={handleAddToCart}
+            >
+              Buy Again
+            </Button>
+          ) : userInfo ? (
+            <Button
+              type="button"
+              className="mt-3"
+              disabled
+            >
+              Product was not bought
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              className="mt-3"
+              disabled
+            >
+              Login to buy
+            </Button>
+          )}
         </Card.Body>
       </Card>
     </div>
