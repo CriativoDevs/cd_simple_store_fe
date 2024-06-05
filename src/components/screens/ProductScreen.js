@@ -151,9 +151,13 @@ function ProductScreen() {
                         Add To Cart
                       </Button>
                     ) : (
-                      <Message variant="info">
-                        Please <Link to="/login">login</Link> to add to cart
-                      </Message>
+                      <Button
+                        type="button"
+                        className="mt-3 mx-auto d-block"
+                        onClick={() => navigate("/login")}
+                      >
+                        Login to buy
+                      </Button>
                     )}
                   </ListGroup.Item>
                 </ListGroup>
