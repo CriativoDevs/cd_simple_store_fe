@@ -10,12 +10,29 @@ import {
   PRODUCT_SEARCH_SUCCESS,
 } from "../constants/productsConstants";
 
-export const productsListReducers = (state = { products: [] }, action) => {
+const initialState = {
+  products: [],
+  pagination: {
+    count: 0,
+    next: null,
+    previous: null,
+  },
+};
+
+export const productsListReducers = (state = initialState, action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
-      return { loading: true, products: [] };
+      return { ...state, loading: true, products: [] };
     case PRODUCT_LIST_SUCCESS:
-      return { loading: false, products: action.payload };
+      return {
+        loading: false,
+        products: action.payload.products,
+        pagination: {
+          count: action.payload.count,
+          next: action.payload.next,
+          previous: action.payload.previous,
+        },
+      };
     case PRODUCT_LIST_FAIL:
       return { loading: false, error: action.payload };
     case PRODUCT_SEARCH_REQUEST:

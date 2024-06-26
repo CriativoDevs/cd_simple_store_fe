@@ -11,22 +11,33 @@ import {
   PRODUCT_SEARCH_FAIL,
 } from "../constants/productsConstants";
 
-export const listProducts = () => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCT_LIST_REQUEST });
-    const { data } = await axios.get("/api/products");
+export const listProducts =
+  (page = 1) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    });
-  }
-};
+      const { data } = await axios.get(`/api/products/?page=${page}`);
+
+      dispatch({
+        type: PRODUCT_LIST_SUCCESS,
+        payload: {
+          products: data.results,
+          count: data.count,
+          next: data.next,
+          previous: data.previous,
+        },
+      });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_LIST_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
+    }
+  };
 
 export const listProductDetails = (id) => async (dispatch) => {
   try {
