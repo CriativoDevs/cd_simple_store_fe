@@ -5,7 +5,7 @@ import Rating from "./Rating";
 import { Link } from "react-router-dom";
 import { addToCart } from "../actions/cartActions";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 
 function Product({ product, onClick }) {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function Product({ product, onClick }) {
   useEffect(() => {
     if (userInfo) {
       const checkPurchaseStatus = async () => {
-        const { data } = await axios.get(
+        const { data } = await api.get(
           `/api/check-purchase-status/${product._id}/`,
           {
             headers: {

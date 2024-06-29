@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api";
 import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -29,7 +29,7 @@ export const login = (email, password) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.post(
+    const { data } = await api.post(
       "/api/users/login/",
       { username: email, password: password },
       config
@@ -74,7 +74,7 @@ export const signup =
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post(
+      const { data } = await api.post(
         "/api/users/register/",
         {
           first_name: firstName,
@@ -120,7 +120,7 @@ export const emailToPasswordReset = (email) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.post(
+    const { data } = await api.post(
       "/api/users/email_to_reset_password/",
       { email: email },
       config
@@ -155,7 +155,7 @@ export const resetPassword = (email, password, token) => async (dispatch) => {
       token,
     });
 
-    const { data } = await axios.post(
+    const { data } = await api.post(
       "/api/users/password_reset/",
       body,
       config
@@ -193,7 +193,7 @@ export const getUserProfile = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get("/api/users/profile/", config);
+    const { data } = await api.get("/api/users/profile/", config);
 
     dispatch({
       type: USER_PROFILE_SUCCESS,
@@ -235,7 +235,7 @@ export const updateUserProfile = (profile) => async (dispatch, getState) => {
       profile,
     };
 
-    const { data } = await axios.put("/api/users/profile/", payload, config);
+    const { data } = await api.put("/api/users/profile/", payload, config);
 
     dispatch({
       type: USER_PROFILE_UPDATE_SUCCESS,

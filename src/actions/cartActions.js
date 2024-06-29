@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api";
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
@@ -6,7 +6,7 @@ import {
 } from "../constants/cartConstants";
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/api/product/${id}`);
+  const { data } = await api.get(`/api/product/${id}`);
 
   dispatch({
     type: CART_ADD_ITEM,
@@ -51,7 +51,7 @@ export const createCheckoutSession =
       },
     };
 
-    const { data } = await axios.post(
+    const { data } = await api.post(
       "/api/create-payment-intent/",
       {
         cartItems,

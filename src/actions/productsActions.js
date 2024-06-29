@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api";
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -17,7 +17,7 @@ export const listProducts =
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
 
-      const { data } = await axios.get(`/api/products/?page=${page}`);
+      const { data } = await api.get(`/api/products/?page=${page}`);
 
       dispatch({
         type: PRODUCT_LIST_SUCCESS,
@@ -42,7 +42,7 @@ export const listProducts =
 export const listProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`/api/product/${id}`);
+    const { data } = await api.get(`/api/product/${id}`);
 
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -59,7 +59,7 @@ export const listProductDetails = (id) => async (dispatch) => {
 export const searchProducts = (keyword) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_SEARCH_REQUEST });
-    const { data } = await axios.get(`/api/products/?search=${keyword}`);
+    const { data } = await api.get(`/api/products/?search=${keyword}`);
 
     dispatch({ type: PRODUCT_SEARCH_SUCCESS, payload: data });
   } catch (error) {

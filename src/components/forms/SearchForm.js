@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../api";
 import { Modal, Button } from "react-bootstrap"; // Import Modal and Button
 import Product from "../Product"; // Import Product component
 
@@ -26,7 +26,7 @@ function SearchForm() {
 
   const searchProducts = async () => {
     try {
-      const response = await axios.get(`/api/products/?search=${searchTerm}`);
+      const response = await api.get(`/api/products/?search=${searchTerm}`);
       // Handle response data
       if (response.data.length > 0) {
         setSearchedProduct(response.data); // Set the first searched product
