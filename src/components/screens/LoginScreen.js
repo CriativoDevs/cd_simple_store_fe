@@ -20,7 +20,7 @@ function LoginScreen() {
     const token = localStorage.getItem("jwtToken");
     if (userInfo || token) {
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      navigate("/");
+      navigate(redirect);
     }
   }, [userInfo, redirect, navigate]);
 
@@ -102,7 +102,6 @@ function LoginScreen() {
                         </span>{" "}
                         Password
                       </Form.Label>
-
                       <Form.Control
                         type="password"
                         placeholder="Enter your password"
