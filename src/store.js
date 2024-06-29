@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import { thunk } from "redux-thunk";
-// eslint-disable-next-line no-unused-vars
+import thunk from "redux-thunk"; // Use the default export
+// eslint-disable-next-line
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
   productsListReducers,
@@ -33,6 +33,7 @@ const cartItemsFromStorage = localStorage.getItem("cartItems")
 const initialState = {
   cart: { cartItems: cartItemsFromStorage },
 };
+
 const middleware = [thunk];
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -42,4 +43,5 @@ const store = createStore(
   initialState,
   composeEnhancers(applyMiddleware(...middleware))
 );
+
 export default store;
