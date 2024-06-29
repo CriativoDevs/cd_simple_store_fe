@@ -20,6 +20,7 @@ import {
   USER_PROFILE_UPDATE_SUCCESS,
   USER_PROFILE_UPDATE_FAIL,
 } from "../constants/userConstants";
+// import { useNavigate } from "react-router";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -62,7 +63,6 @@ export const logout = () => (dispatch) => {
   localStorage.removeItem("jwtToken"); // Remove JWT token from local storage
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
-  document.location.href = "/login";
 };
 
 export const signup =
@@ -155,11 +155,7 @@ export const resetPassword = (email, password, token) => async (dispatch) => {
       token,
     });
 
-    const { data } = await api.post(
-      "/api/users/password_reset/",
-      body,
-      config
-    );
+    const { data } = await api.post("/api/users/password_reset/", body, config);
 
     dispatch({
       type: USER_PASSWORD_RESET_SUCCESS,

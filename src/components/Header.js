@@ -4,9 +4,11 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, loadUserFromStorage } from "../actions/userActions";
 import SearchForm from "../components/forms/SearchForm";
+import { useNavigate } from "react-router";
 
 function Header() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
@@ -17,8 +19,9 @@ function Header() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const logoutHandler = () => {
+  const handleLogout = () => {
     dispatch(logout());
+    navigate("/login");
   };
 
   return (
@@ -50,7 +53,9 @@ function Header() {
               {userInfo ? (
                 <>
                   <LinkContainer to="/cart">
-                    <Nav.Link onClick={() => setExpanded(false)}>Cart <i className="fa-solid fa-cart-shopping"></i></Nav.Link>
+                    <Nav.Link onClick={() => setExpanded(false)}>
+                      Cart <i className="fa-solid fa-cart-shopping"></i>
+                    </Nav.Link>
                   </LinkContainer>
                   <LinkContainer to="/profile">
                     <Nav.Link onClick={() => setExpanded(false)}>
@@ -59,7 +64,7 @@ function Header() {
                   </LinkContainer>
                   <Nav.Link
                     onClick={() => {
-                      logoutHandler();
+                      handleLogout();
                       setExpanded(false);
                     }}
                   >

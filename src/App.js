@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -12,10 +12,10 @@ import ResetPasswordForm from "./components/forms/ResetPasswordForm";
 import NewPasswordForm from "./components/forms/NewPasswordForm";
 import SuccessPage from "./components/pages/SuccessPage";
 import CancelPage from "./components/pages/CancelPage";
+import ProfileScreen from "./components/screens/ProfileScreen";
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import ProfileScreen from "./components/screens/ProfileScreen";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
@@ -37,7 +37,7 @@ export default function App() {
             path="/signup"
             element={<SignupScreen />}
           />
-          <Route 
+          <Route
             path="/profile"
             element={<ProfileScreen />}
           />
