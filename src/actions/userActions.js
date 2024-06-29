@@ -20,7 +20,6 @@ import {
   USER_PROFILE_UPDATE_SUCCESS,
   USER_PROFILE_UPDATE_FAIL,
 } from "../constants/userConstants";
-// import { useNavigate } from "react-router";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -227,11 +226,7 @@ export const updateUserProfile = (profile) => async (dispatch, getState) => {
       },
     };
 
-    const payload = {
-      profile,
-    };
-
-    const { data } = await api.put("/api/users/profile/", payload, config);
+    const { data } = await api.put("/api/users/profile/", profile, config);
 
     dispatch({
       type: USER_PROFILE_UPDATE_SUCCESS,
