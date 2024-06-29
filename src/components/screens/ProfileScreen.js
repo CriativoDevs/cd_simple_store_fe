@@ -20,16 +20,18 @@ const ProfileScreen = () => {
   });
 
   useEffect(() => {
-    if (!user.username) {
-      dispatch(getUserProfile());
-    } else {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (user) {
       setProfile({
-        phone_number: user.profile.phone_number || "",
-        address1: user.profile.address1 || "",
-        address2: user.profile.address2 || "",
+        phone_number: user.profile?.phone_number || "",
+        address1: user.profile?.address1 || "",
+        address2: user.profile?.address2 || "",
       });
     }
-  }, [dispatch, user]);
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +40,6 @@ const ProfileScreen = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(profile);
     dispatch(updateUserProfile(profile));
   };
 
