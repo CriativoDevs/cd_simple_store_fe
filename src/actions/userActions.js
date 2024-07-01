@@ -226,7 +226,11 @@ export const updateUserProfile = (profile) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await api.put("/api/users/profile/", profile, config);
+    const payload = {
+      profile,
+    };
+
+    const { data } = await api.put("/api/users/profile/", payload, config);
 
     dispatch({
       type: USER_PROFILE_UPDATE_SUCCESS,
