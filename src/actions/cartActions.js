@@ -8,6 +8,11 @@ import {
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const { data } = await api.get(`/api/product/${id}`);
 
+  if (data.product_image && !data.product_image.startsWith("http")) {
+    const baseUrl = process.env.REACT_APP_API_URL || window.location.origin;
+    data.product_image = new URL(data.product_image, baseUrl).href;
+  }
+
   dispatch({
     type: CART_ADD_ITEM,
     payload: {

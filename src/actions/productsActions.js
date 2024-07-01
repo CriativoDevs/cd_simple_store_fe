@@ -44,6 +44,12 @@ export const listProductDetails = (id) => async (dispatch) => {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
     const { data } = await api.get(`/api/product/${id}`);
 
+    // Ensure product_image is an absolute URL
+    if (data.product_image && !data.product_image.startsWith("http")) {
+      const baseUrl = process.env.REACT_APP_API_URL || window.location.origin;
+      data.product_image = new URL(data.product_image, baseUrl).href;
+    }
+
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

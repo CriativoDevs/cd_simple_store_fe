@@ -33,6 +33,13 @@ function ProductScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
 
+  useEffect(() => {
+    if (product.product_image && !product.product_image.startsWith("http")) {
+      const baseUrl = process.env.REACT_APP_API_URL || window.location.origin; // Dynamically get the base URL
+      product.product_image = new URL(product.product_image, baseUrl).href;
+    }
+  }, [product]);
+
   const addToCartHandler = () => {
     navigate(`/cart/${id}?qty=${qty}`);
   };
