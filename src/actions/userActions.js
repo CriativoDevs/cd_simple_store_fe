@@ -136,7 +136,7 @@ export const emailToPasswordReset = (email) => async (dispatch) => {
   }
 };
 
-export const resetPassword = (email, password, token) => async (dispatch) => {
+export const resetPassword = (uidb64, token, password) => async (dispatch) => {
   try {
     dispatch({
       type: USER_PASSWORD_RESET_REQUEST,
@@ -149,12 +149,14 @@ export const resetPassword = (email, password, token) => async (dispatch) => {
     };
 
     const body = JSON.stringify({
-      email,
       password,
-      token,
     });
 
-    const { data } = await api.post("/api/users/password_reset/", body, config);
+    const { data } = await api.post(
+      `/api/users/reset-password/${uidb64}/${token}/`,
+      body,
+      config
+    );
 
     dispatch({
       type: USER_PASSWORD_RESET_SUCCESS,
