@@ -1,4 +1,3 @@
-// ResetPasswordForm.js
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
@@ -8,14 +7,12 @@ import Loader from "../Loader";
 import Message from "../Message";
 import { resetPassword } from "../../actions/userActions";
 
-const NewPasswordForm = ({ onSubmit }) => {
+const NewPasswordForm = () => {
+  const { uidb64, token } = useParams(); // Retrieve uidb64 and token from URL parameters
   const userLogin = useSelector((state) => state.userLogin);
-  const { token } = useParams();
-
   const dispatch = useDispatch();
 
   const { loading, error } = userLogin;
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -27,7 +24,7 @@ const NewPasswordForm = ({ onSubmit }) => {
       setMessage("Passwords do not match.");
       return;
     }
-    dispatch(resetPassword(email, password, token));
+    dispatch(resetPassword(uidb64, token, password));
     setMessage("Password was reset successfully");
   };
 
@@ -71,20 +68,6 @@ const NewPasswordForm = ({ onSubmit }) => {
                   {error && <Message variant="danger">{error}</Message>}
                   <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
-                      <Form.Label>
-                        {" "}
-                        <span>
-                          <i className="fas fa-envelope"></i>
-                        </span>{" "}
-                        Email
-                      </Form.Label>
-                      <Form.Control
-                        type="email"
-                        placeholder="Enter your email"
-                        required
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                      />
                       <Form.Label>
                         {" "}
                         <span>

@@ -1,4 +1,3 @@
-// ResetPasswordForm.js
 import React, { useState } from "react";
 import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
