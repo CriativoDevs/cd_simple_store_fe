@@ -46,7 +46,7 @@ export default function App() {
             element={<ResetPasswordForm />}
           />
           <Route
-            path="/reset-password/:uid/:token"
+            path="/reset-password/:uidb64/:token"
             element={<NewPasswordForm />}
           />
           <Route

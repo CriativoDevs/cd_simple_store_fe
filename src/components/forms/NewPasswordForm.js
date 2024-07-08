@@ -85,7 +85,7 @@ const NewPasswordForm = () => {
                         value={password}
                       />
                       <small>
-                        Password must be atleast [1-9][a-z][A-z][_@#*&!...] and
+                        Password must be at least [1-9][a-z][A-z][_@#*&!...] and
                         5 characters
                       </small>
                     </Form.Group>
@@ -137,7 +137,7 @@ const NewPasswordForm = () => {
                       <Link to="/signup">Signup</Link>
                     </Col>
                     <Col className="text-center">
-                      Remeber password? <br />
+                      Remember password? <br />
                       <Link to="/login">Login</Link>
                     </Col>
                   </Row>
