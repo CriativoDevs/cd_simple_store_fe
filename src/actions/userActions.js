@@ -157,6 +157,7 @@ export const resetPassword = (uidb64, token, password) => async (dispatch) => {
       body,
       config
     );
+    console.log("data", data);
 
     dispatch({
       type: USER_PASSWORD_RESET_SUCCESS,
