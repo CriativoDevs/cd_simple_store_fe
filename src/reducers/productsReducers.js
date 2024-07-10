@@ -11,7 +11,9 @@ import {
 } from "../constants/productsConstants";
 
 const initialState = {
+  loading: false,
   products: [],
+  error: null,
   pagination: {
     count: 0,
     next: null,
@@ -22,9 +24,10 @@ const initialState = {
 export const productsListReducers = (state = initialState, action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
-      return { ...state, loading: true, products: [] };
+      return { ...state, loading: true, products: [], error: null };
     case PRODUCT_LIST_SUCCESS:
       return {
+        ...state,
         loading: false,
         products: action.payload.products,
         pagination: {
@@ -32,15 +35,21 @@ export const productsListReducers = (state = initialState, action) => {
           next: action.payload.next,
           previous: action.payload.previous,
         },
+        error: null,
       };
     case PRODUCT_LIST_FAIL:
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload, products: [] };
     case PRODUCT_SEARCH_REQUEST:
-      return { loading: true, products: [] }; // Clear previous search results
+      return { ...state, loading: true, error: null }; // Clear previous search results
     case PRODUCT_SEARCH_SUCCESS:
-      return { loading: false, products: action.payload };
+      return {
+        ...state,
+        loading: false,
+        products: action.payload,
+        error: null,
+      };
     case PRODUCT_SEARCH_FAIL:
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload, products: [] };
     default:
       return state;
   }

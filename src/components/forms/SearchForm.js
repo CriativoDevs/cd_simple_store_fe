@@ -20,6 +20,7 @@ function SearchForm() {
 
   const handleKeyPress = async (event) => {
     if (event.key === "Enter") {
+      event.preventDefault(); // Prevent form submission on Enter
       await searchProducts();
     }
   };
@@ -29,11 +30,10 @@ function SearchForm() {
       const response = await api.get(`/api/products/?search=${searchTerm}`);
       // Handle response data
       if (response.data.length > 0) {
-        setSearchedProduct(response.data); // Set the first searched product
+        setSearchedProduct(response.data); // Set the searched products
         setShowModal(true); // Show the modal
       } else {
         // Handle case where no product is found
-        // For now, just log a message
         console.log("No product found.");
       }
     } catch (error) {
@@ -44,7 +44,7 @@ function SearchForm() {
 
   const closeModal = () => {
     setShowModal(false);
-    setSearchedProduct([]); // Reset the searched product when modal is closed
+    setSearchedProduct([]); // Reset the searched products when modal is closed
   };
 
   const handleProductClick = () => {
