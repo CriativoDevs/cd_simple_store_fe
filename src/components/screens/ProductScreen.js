@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../../actions/productsActions";
-import Rating from "../Rating";
+// import Rating from "../Rating";
 import Loader from "../Loader";
 import Message from "../Message";
 
