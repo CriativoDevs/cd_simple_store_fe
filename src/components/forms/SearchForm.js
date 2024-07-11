@@ -26,10 +26,8 @@ function SearchForm() {
   };
 
   const searchProducts = async () => {
-    console.log("Search Term:", searchTerm);
     try {
       const response = await api.get(`/api/products/?search=${searchTerm}`);
-      console.log("Search Response:", response.data);
       if (response.data.results && response.data.results.length > 0) {
         setSearchedProduct(response.data.results); // Set the searched products
         setShowModal(true); // Show the modal
