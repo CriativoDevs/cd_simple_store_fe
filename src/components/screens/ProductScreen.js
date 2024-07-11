@@ -78,13 +78,13 @@ function ProductScreen() {
                 <ListGroup.Item>
                   <h3>{product.product_name}</h3>
                 </ListGroup.Item>
-                <ListGroup.Item>
+                {/* <ListGroup.Item>
                   <Rating
                     value={product.product_rating}
                     text={`${product.number_of_reviews} reviews`}
                     color={"#f8e825"}
                   />
-                </ListGroup.Item>
+                </ListGroup.Item> */}
                 <ListGroup.Item>Brand: {product.product_brand}</ListGroup.Item>
                 <ListGroup.Item style={{ marginBottom: "20px" }}>
                   Description: {product.product_description}

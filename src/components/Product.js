@@ -71,11 +71,11 @@ function Product({ product, onClick }) {
             </Card.Title>
           </Link>
           <Card.Text as="h5">€ {product.product_price}</Card.Text>
-          <Rating
+          {/* <Rating
             value={product.product_rating}
             text={`${product.number_of_reviews} reviews`}
             color={"#f8e825"}
-          />
+          /> */}
           {userInfo && hasBought ? (
             <Button
               type="button"
