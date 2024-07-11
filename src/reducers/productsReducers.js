@@ -45,7 +45,12 @@ export const productsListReducers = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        products: action.payload,
+        products: action.payload.results, // Access the results array
+        pagination: {
+          count: action.payload.count,
+          next: action.payload.next,
+          previous: action.payload.previous,
+        },
         error: null,
       };
     case PRODUCT_SEARCH_FAIL:

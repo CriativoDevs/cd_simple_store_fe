@@ -30,8 +30,8 @@ function SearchForm() {
     try {
       const response = await api.get(`/api/products/?search=${searchTerm}`);
       console.log("Search Response:", response.data);
-      if (response.data.length > 0) {
-        setSearchedProduct(response.data); // Set the searched products
+      if (response.data.results && response.data.results.length > 0) {
+        setSearchedProduct(response.data.results); // Set the searched products
         setShowModal(true); // Show the modal
       } else {
         // Handle case where no product is found
