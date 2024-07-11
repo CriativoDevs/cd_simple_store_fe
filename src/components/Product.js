@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-// import Rating from "./Rating";
 import { Link } from "react-router-dom";
 import { addToCart } from "../actions/cartActions";
 import { useNavigate } from "react-router-dom";
@@ -71,11 +70,6 @@ function Product({ product, onClick }) {
             </Card.Title>
           </Link>
           <Card.Text as="h5">€ {product.product_price}</Card.Text>
-          {/* <Rating
-            value={product.product_rating}
-            text={`${product.number_of_reviews} reviews`}
-            color={"#f8e825"}
-          /> */}
           {userInfo && hasBought ? (
             <Button
               type="button"

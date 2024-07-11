@@ -12,7 +12,6 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../../actions/productsActions";
-// import Rating from "../Rating";
 import Loader from "../Loader";
 import Message from "../Message";
 
@@ -78,13 +77,6 @@ function ProductScreen() {
                 <ListGroup.Item>
                   <h3>{product.product_name}</h3>
                 </ListGroup.Item>
-                {/* <ListGroup.Item>
-                  <Rating
-                    value={product.product_rating}
-                    text={`${product.number_of_reviews} reviews`}
-                    color={"#f8e825"}
-                  />
-                </ListGroup.Item> */}
                 <ListGroup.Item>Brand: {product.product_brand}</ListGroup.Item>
                 <ListGroup.Item style={{ marginBottom: "20px" }}>
                   Description: {product.product_description}
