@@ -35,14 +35,15 @@ function Product({ product, onClick }) {
   };
 
   return (
-    <div style={{ marginTop: "5px", marginBottom: "50px" }}>
+    <div style={{ marginTop: "5px", marginBottom: "5px" }}>
+      {" "}
+      {/* Reduced spacing */}
       <Card
-        className="my-3 p-3 rounded"
+        className="my-1 p-2 rounded"
         onClick={onClick}
         style={{
           height: "100%",
-          marginTop: "20px",
-          paddingTop: "20px",
+          width: "100%", // Adjusted width for smaller cards
         }}
       >
         <Link to={`/product/${product._id}`}>
@@ -51,29 +52,43 @@ function Product({ product, onClick }) {
             alt={product.product_name}
             fluid
             style={{
-              height: "270px",
+              height: "100px", // Reduced height for smaller cards
               width: "100%",
               objectFit: "cover",
+              display: "block",
+              margin: "0 auto",
             }}
           />
         </Link>
-        <Card.Body style={{ height: "calc(100% - 270px)" }}>
+        <Card.Body
+          className="d-flex flex-column align-items-center"
+          style={{ height: "calc(100% - 140px)" }} // Adjusted height
+        >
           <Link
             to={`/product/${product._id}`}
             className="text-dark"
           >
             <Card.Title
-              as="h3"
-              style={{ maxHeight: "50px", overflow: "hidden" }}
+              as="h5" // Reduced font size
+              style={{
+                textAlign: "center",
+                maxHeight: "40px", // Adjusted max height
+                overflow: "hidden",
+              }}
             >
               {product.product_name}
             </Card.Title>
           </Link>
-          <Card.Text as="h5">€ {product.product_price}</Card.Text>
+          <Card.Text
+            as="h6" // Reduced font size
+            className="my-1"
+          >
+            € {product.product_price}
+          </Card.Text>
           {userInfo && hasBought ? (
             <Button
               type="button"
-              className="mt-3"
+              className="mt-2 d-flex justify-content-center" // Reduced margin-top
               onClick={handleAddToCart}
             >
               Buy Again
@@ -81,7 +96,7 @@ function Product({ product, onClick }) {
           ) : userInfo ? (
             <Button
               type="button"
-              className="mt-3"
+              className="mt-2 d-flex justify-content-center" // Reduced margin-top
               disabled
             >
               Product was not bought
@@ -89,7 +104,7 @@ function Product({ product, onClick }) {
           ) : (
             <Button
               type="button"
-              className="mt-3"
+              className="mt-2 d-flex justify-content-center" // Reduced margin-top
               onClick={() => navigate("/login")}
             >
               Login to buy

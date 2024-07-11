@@ -23,48 +23,62 @@ function HomeScreen() {
   };
 
   return (
-    <Container>
-      <h2 className="my-3">Latest Products</h2>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
-      ) : (
-        <>
-          <Row>
-            {products.map((product) => (
-              <Col
-                key={product._id}
-                sm={12}
-                md={6}
-                lg={4}
-                xl={3}
-              >
-                <Product product={product} />
-              </Col>
-            ))}
-          </Row>
-          {pagination && pagination.count > 1 && (
-            <Pagination className="mt-3">
-              {pagination.previous && (
-                <Pagination.Prev onClick={() => handlePageChange(page - 1)} />
+    <Container fluid>
+      <Row>
+        <Col md={2}>
+          <h3 className="my-3 text-center">Filters</h3>
+        </Col>
+        <Col md={9}>
+          <h2 className="my-3">Latest Products</h2>
+          {loading ? (
+            <Loader />
+          ) : error ? (
+            <Message variant="danger">{error}</Message>
+          ) : (
+            <>
+              <Row>
+                {products.map((product) => (
+                  <Col
+                    key={product._id}
+                    sm={12}
+                    md={6}
+                    lg={4}
+                    xl={4}
+                  >
+                    <Product product={product} />
+                  </Col>
+                ))}
+              </Row>
+              {pagination && pagination.count > 1 && (
+                <Pagination className="mt-3">
+                  {pagination.previous && (
+                    <Pagination.Prev
+                      onClick={() => handlePageChange(page - 1)}
+                    />
+                  )}
+                  {Array.from(
+                    { length: Math.ceil(pagination.count / 20) },
+                    (_, i) => (
+                      <Pagination.Item
+                        key={i + 1}
+                        active={i + 1 === page}
+                        onClick={() => handlePageChange(i + 1)}
+                      >
+                        {i + 1}
+                      </Pagination.Item>
+                    )
+                  )}
+                  {pagination.next && (
+                    <Pagination.Next
+                      onClick={() => handlePageChange(page + 1)}
+                    />
+                  )}
+                </Pagination>
               )}
-              {Array.from({ length: Math.ceil(pagination.count / 20) }, (_, i) => (
-                <Pagination.Item
-                  key={i + 1}
-                  active={i + 1 === page}
-                  onClick={() => handlePageChange(i + 1)}
-                >
-                  {i + 1}
-                </Pagination.Item>
-              ))}
-              {pagination.next && (
-                <Pagination.Next onClick={() => handlePageChange(page + 1)} />
-              )}
-            </Pagination>
+            </>
           )}
-        </>
-      )}
+        </Col>
+      </Row>
     </Container>
   );
 }
