@@ -66,9 +66,11 @@ export const searchProducts = (keyword) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_SEARCH_REQUEST });
     const { data } = await api.get(`/api/products/?search=${keyword}`);
+    console.log("Search API Data:", data);
 
     dispatch({ type: PRODUCT_SEARCH_SUCCESS, payload: data });
   } catch (error) {
+    console.log("Search API Error:", error);
     dispatch({
       type: PRODUCT_SEARCH_FAIL,
       payload:
