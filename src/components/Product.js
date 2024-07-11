@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Rating from "./Rating";
+// import Rating from "./Rating";
 import { Link } from "react-router-dom";
 import { addToCart } from "../actions/cartActions";
 import { useNavigate } from "react-router-dom";
