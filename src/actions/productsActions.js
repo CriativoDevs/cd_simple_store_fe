@@ -12,10 +12,18 @@ import {
 } from "../constants/productsConstants";
 
 export const listProducts =
-  (page = 1) =>
+  ({ page = 1, minPrice, maxPrice, brand, category, orderBy } = {}) =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
+
+      const params = new URLSearchParams();
+      params.append("page", page);
+      if (minPrice) params.append("min_price", minPrice);
+      if (maxPrice) params.append("max_price", maxPrice);
+      if (brand) params.append("brand", brand);
+      if (category) params.append("category", category);
+      if (orderBy) params.append("order_by", orderBy);
 
       const { data } = await api.get(`/api/products/?page=${page}`);
 

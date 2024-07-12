@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
-import { Row, Col, Pagination } from "react-bootstrap";
+import { Container, Row, Col, Pagination } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../actions/productsActions";
 import Product from "../Product";
 import Loader from "../Loader";
 import Message from "../Message";
+import Filter from "../Filter";
 
 function HomeScreen() {
   const dispatch = useDispatch();
@@ -13,20 +13,26 @@ function HomeScreen() {
   const { loading, error, products, pagination } = productsList;
 
   const [page, setPage] = useState(1);
+  const [filters, setFilters] = useState({});
 
   useEffect(() => {
-    dispatch(listProducts(page));
-  }, [dispatch, page]);
+    dispatch(listProducts({ page, ...filters }));
+  }, [dispatch, page, filters]);
 
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
   };
 
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+    setPage(1);
+  };
+
   return (
     <Container fluid>
       <Row>
-        <Col md={2}>
-          <h3 className="my-3 text-center">Filters</h3>
+        <Col md={3}>
+          <Filter onFilterChange={handleFilterChange} />
         </Col>
         <Col md={9}>
           <h2 className="my-3">Latest Products</h2>
