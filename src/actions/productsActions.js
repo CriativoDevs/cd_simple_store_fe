@@ -26,7 +26,6 @@ export const listProducts =
       if (orderBy) params.append("order_by", orderBy);
 
       const { data } = await api.get(`/api/products/?${params.toString()}`);
-      console.log("data", data);
 
       dispatch({
         type: PRODUCT_LIST_SUCCESS,

@@ -46,7 +46,6 @@ export const login = (email, password) => async (dispatch) => {
     };
     localStorage.setItem("userInfo", JSON.stringify(userData));
 
-    console.log(data);
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -157,7 +156,6 @@ export const resetPassword = (uidb64, token, password) => async (dispatch) => {
       body,
       config
     );
-    console.log("data", data);
 
     dispatch({
       type: USER_PASSWORD_RESET_SUCCESS,
