@@ -25,7 +25,7 @@ function Filter({ onFilterChange }) {
     onFilterChange({
       minPrice,
       maxPrice,
-      brand: selectedBrand,
+      brands: selectedBrand,
       category: selectedCategory,
       orderBy,
     });
