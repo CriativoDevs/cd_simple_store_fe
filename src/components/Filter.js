@@ -4,7 +4,7 @@ import api from "../api";
 
 function Filter({ onFilterChange }) {
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(10000); // Adjust the initial max value as needed
+  const [maxPrice, setMaxPrice] = useState(10000);
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -43,14 +43,14 @@ function Filter({ onFilterChange }) {
             value={minPrice}
             onChange={(e) => setMinPrice(Number(e.target.value))}
           />
-          <Form.Label className="mt-2">Min: €{minPrice}</Form.Label>
+          <Form.Label className="mt-2">Min: € {minPrice}</Form.Label>
           <Form.Range
             min="0"
             max="10000" // Adjust max value as needed
             value={maxPrice}
             onChange={(e) => setMaxPrice(Number(e.target.value))}
           />
-          <Form.Label className="mt-2">Max: €{maxPrice}</Form.Label>
+          <Form.Label className="mt-2">Max: € {maxPrice}</Form.Label>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Brand:</Form.Label>
