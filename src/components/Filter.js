@@ -3,8 +3,8 @@ import { Button, Form } from "react-bootstrap";
 import api from "../api";
 
 function Filter({ onFilterChange }) {
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(10000);
+  const [min_price, setMinPrice] = useState(1);
+  const [max_price, setMaxPrice] = useState(10000);
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -23,12 +23,13 @@ function Filter({ onFilterChange }) {
 
   const handleFilterChange = () => {
     onFilterChange({
-      minPrice,
-      maxPrice,
+      min_price,
+      max_price,
       brands: selectedBrand,
       category: selectedCategory,
       orderBy,
     });
+    console.log("Filters applied:", max_price);
   };
 
   return (
@@ -38,19 +39,19 @@ function Filter({ onFilterChange }) {
         <Form.Group className="mb-3">
           <Form.Label>Price Range</Form.Label>
           <Form.Range
-            min="0"
+            min="1"
             max="1000" // Adjust max value as needed
-            value={minPrice}
+            value={min_price}
             onChange={(e) => setMinPrice(Number(e.target.value))}
           />
-          <Form.Label className="mt-2">Min: € {minPrice}</Form.Label>
+          <Form.Label className="mt-2">Min: € {min_price}</Form.Label>
           <Form.Range
             min="0"
             max="10000" // Adjust max value as needed
-            value={maxPrice}
+            value={max_price}
             onChange={(e) => setMaxPrice(Number(e.target.value))}
           />
-          <Form.Label className="mt-2">Max: € {maxPrice}</Form.Label>
+          <Form.Label className="mt-2">Max: € {max_price}</Form.Label>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Brand:</Form.Label>
@@ -110,4 +111,3 @@ function Filter({ onFilterChange }) {
 }
 
 export default Filter;
-

@@ -12,15 +12,15 @@ import {
 } from "../constants/productsConstants";
 
 export const listProducts =
-  ({ page = 1, minPrice, maxPrice, brands, category, orderBy } = {}) =>
+  ({ page = 1, min_price, max_price, brands, category, orderBy } = {}) =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
 
       const params = new URLSearchParams();
       params.append("page", page);
-      if (minPrice) params.append("min_price", minPrice);
-      if (maxPrice) params.append("max_price", maxPrice);
+      if (min_price) params.append("min_price", min_price);
+      if (max_price) params.append("max_price", max_price);
       if (brands) params.append("brands", brands);
       if (category) params.append("category", category);
       if (orderBy) params.append("order_by", orderBy);
