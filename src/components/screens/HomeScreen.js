@@ -63,7 +63,7 @@ function HomeScreen() {
                     />
                   )}
                   {Array.from(
-                    { length: Math.ceil(pagination.count / 20) },
+                    { length: Math.ceil(pagination.count / 15) },
                     (_, i) => (
                       <Pagination.Item
                         key={i + 1}
