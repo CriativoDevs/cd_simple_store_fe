@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Pagination } from "react-bootstrap";
+import { Container, Row, Col, Pagination, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../actions/productsActions";
 import Product from "../Product";
 import Loader from "../Loader";
 import Message from "../Message";
 import Filter from "../Filter";
+import Criativo from "../../assets/img/Criativo.png";
+
 
 function HomeScreen() {
   const dispatch = useDispatch();
@@ -30,6 +32,13 @@ function HomeScreen() {
 
   return (
     <Container fluid>
+      <Image
+        src={Criativo}
+        alt="Criativo"
+        fluid
+        className="mb-3"
+        style={{ height: "300px", width: "100%" }}
+      />
       <Row>
         <Col md={3}>
           <Filter onFilterChange={handleFilterChange} />

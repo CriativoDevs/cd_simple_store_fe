@@ -40,7 +40,12 @@ function Footer() {
         <div className="footer-section">
           <h3>Contact:</h3>
           <p>Mobile: +351 911 509 368</p>
-          <p>Email: criativo.devs@criativodevs.online</p>
+          <p>
+            Email:{" "}
+            <a href="mailto:criativo.devs@criativodevs.online">
+              criativo.devs@criativodevs.online
+            </a>
+          </p>
         </div>
       </div>
     </footer>
