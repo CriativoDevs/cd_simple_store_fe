@@ -33,16 +33,18 @@ function Header() {
         expanded={expanded}
       >
         <Container>
-          <LinkContainer to="/">
-            <Navbar.Brand>CD Simple Store</Navbar.Brand>
-          </LinkContainer>
           <Navbar.Toggle
             aria-controls="basic-navbar-nav"
             onClick={() => setExpanded(expanded ? false : "expanded")}
           />
           <Navbar.Collapse id="basic-navbar-nav">
-            <div className="d-flex w-100 justify-content-center">
+            <div className="d-flex w-100 justify-content-right">
               <SearchForm />
+            </div>
+            <div className="w-100 d-flex justify-content-center">
+              <LinkContainer to="/">
+                <Navbar.Brand>CD Simple Store</Navbar.Brand>
+              </LinkContainer>
             </div>
             <div className="w-100 d-flex justify-content-center">
               <Nav>
