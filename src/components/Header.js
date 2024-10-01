@@ -41,52 +41,76 @@ function Header() {
             onClick={() => setExpanded(expanded ? false : "expanded")}
           />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <LinkContainer
-                to="/"
-                exact
-              >
-                <Nav.Link onClick={() => setExpanded(false)}>
-                  Home <i className="fa-solid fa-house-chimney"></i>
-                </Nav.Link>
-              </LinkContainer>
-              {userInfo ? (
-                <>
-                  <LinkContainer to="/cart">
-                    <Nav.Link onClick={() => setExpanded(false)}>
-                      Cart <i className="fa-solid fa-cart-shopping"></i>
-                    </Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer to="/profile">
-                    <Nav.Link onClick={() => setExpanded(false)}>
-                      Profile <i className="fa-solid fa-user"></i>
-                    </Nav.Link>
-                  </LinkContainer>
+            <div className="d-flex w-100 justify-content-center">
+              <SearchForm />
+            </div>
+            <div className="w-100 d-flex justify-content-center">
+              <Nav>
+                <LinkContainer
+                  to="/"
+                  exact
+                >
                   <Nav.Link
-                    onClick={() => {
-                      handleLogout();
-                      setExpanded(false);
-                    }}
+                    onClick={() => setExpanded(false)}
+                    className="nav-item"
                   >
-                    Logout <i className="fa-solid fa-right-from-bracket"></i>
+                    Home <i className="fa-solid fa-house-chimney nav-icon"></i>
                   </Nav.Link>
-                </>
-              ) : (
-                <>
-                  <LinkContainer to="/login">
-                    <Nav.Link onClick={() => setExpanded(false)}>
-                      Login <i className="fa-solid fa-right-to-bracket"></i>
+                </LinkContainer>
+                {userInfo ? (
+                  <>
+                    <LinkContainer to="/cart">
+                      <Nav.Link
+                        onClick={() => setExpanded(false)}
+                        className="nav-item"
+                      >
+                        Cart{" "}
+                        <i className="fa-solid fa-cart-shopping nav-icon"></i>
+                      </Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/profile">
+                      <Nav.Link
+                        onClick={() => setExpanded(false)}
+                        className="nav-item"
+                      >
+                        Profile <i className="fa-solid fa-user nav-icon"></i>
+                      </Nav.Link>
+                    </LinkContainer>
+                    <Nav.Link
+                      onClick={() => {
+                        handleLogout();
+                        setExpanded(false);
+                      }}
+                      className="nav-item"
+                    >
+                      Logout{" "}
+                      <i className="fa-solid fa-right-from-bracket nav-icon"></i>
                     </Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer to="/signup">
-                    <Nav.Link onClick={() => setExpanded(false)}>
-                      Signup <i className="fa-solid fa-user-plus"></i>
-                    </Nav.Link>
-                  </LinkContainer>
-                </>
-              )}
-            </Nav>
-            <SearchForm />
+                  </>
+                ) : (
+                  <>
+                    <LinkContainer to="/login">
+                      <Nav.Link
+                        onClick={() => setExpanded(false)}
+                        className="nav-item"
+                      >
+                        Login{" "}
+                        <i className="fa-solid fa-right-to-bracket nav-icon"></i>
+                      </Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/signup">
+                      <Nav.Link
+                        onClick={() => setExpanded(false)}
+                        className="nav-item"
+                      >
+                        Signup{" "}
+                        <i className="fa-solid fa-user-plus nav-icon"></i>
+                      </Nav.Link>
+                    </LinkContainer>
+                  </>
+                )}
+              </Nav>
+            </div>
           </Navbar.Collapse>
         </Container>
       </Navbar>

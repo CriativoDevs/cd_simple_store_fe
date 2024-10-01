@@ -6,8 +6,8 @@ import Product from "../Product";
 import Loader from "../Loader";
 import Message from "../Message";
 import Filter from "../Filter";
+// import Category from "../Category";
 import Criativo from "../../assets/img/Criativo.png";
-
 
 function HomeScreen() {
   const dispatch = useDispatch();
@@ -32,6 +32,7 @@ function HomeScreen() {
 
   return (
     <Container fluid>
+      {/* <Category onFilterChange={handleFilterChange} />{" "} */}
       <Image
         src={Criativo}
         alt="Criativo"
